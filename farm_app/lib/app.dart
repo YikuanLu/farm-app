@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'app/components/bottomNavigationBarVm.dart'; //BottomNavigationBarVm 底部导航组件
 import 'app/views/home/home_list.dart';
 
-class MyApp extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
   void _onTapHandle(int index) {
     setState(() {
@@ -49,9 +50,20 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           textAlign: TextAlign.center,
         ),
         actions: <Widget>[
+          /* FlatButton(
+            textColor: Colors.white,
+            padding: EdgeInsets.all(2.0),
+            color: Color(0x000000),
+            child: Text("登录"),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100.0)),
+            onPressed: () => {
+              Navigator.pushReplacementNamed(context, "/login"),
+            },
+          ) */
           IconButton(
             icon: Icon(IconData(0xe602, fontFamily: 'iconfont'), size: 26.0),
-            tooltip: 'search',
+            tooltip: 'login',
             // onPressed: () => Navigator.pushNamed(context, "/login"),
             onPressed: () => Navigator.pushReplacementNamed(context, "/login"),
           )

@@ -31,12 +31,10 @@ class _HomeListState extends State<HomeList> {
     var data = await Future.delayed(Duration(seconds: 1)).then((res) => 30);
     List<Widget> list = new List.generate(
       pageSize,
-      (index) {
-        return HomeListItem(homeModel);
-      },
+      (index) => HomeListItem(homeModel),
     );
     return {
-      "data": data,
+      "total": data,
       "list": list,
     };
   }

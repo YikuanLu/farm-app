@@ -14,8 +14,6 @@ class BaseListView<T> extends StatefulWidget {
   final bool enableRefresh;
   final bool hasHeader;
   final Widget header;
-  // @required
-  // final int total;
 
   BaseListView(
     this.pageRequest,
@@ -162,7 +160,6 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
   }
 
   void loadmore() async {
-    debugPrint("loadData:loadmore,list:${_list.length}");
     loadData(++_page, widget.pageSize).then((List<T> data) {
       setState(() {
         isLoading = false;
@@ -174,7 +171,7 @@ class _BaseListViewState<T> extends State<BaseListView<T>> {
 
   Future<List<T>> loadData(int page, int pageSize) async {
     var data = await widget.pageRequest(page, pageSize);
-    _total = data["data"];
+    _total = data["total"];
     return data["list"];
   }
 }

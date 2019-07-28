@@ -19,7 +19,7 @@ class _SplashState extends State<Splash> {
         // pushAndRemoveUntil 跳转页面并销毁当前页面
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (BuildContext context) => MyApp(),
+              builder: (BuildContext context) => HomePage(),
             ),
             (Route route) => route == null);
       } catch (e) {}

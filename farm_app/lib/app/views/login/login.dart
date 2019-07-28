@@ -27,6 +27,14 @@ class LoginVm extends StatelessWidget {
         // data: Theme.of(context).copyWith(primaryColor: Colors.indigo),
         child: LoginForm(),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.arrow_back),
+        onPressed: () {
+          // 无返回按钮的路由跳转
+          Navigator.pushReplacementNamed(context, "/home");
+        },
+      ),
     );
   }
 }

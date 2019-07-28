@@ -57,20 +57,38 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  // 初始化方法(获取本地记住账号密码、获取图形验证码请求)
   void init() async {
     mobileController.text = await SharedStorage.getItem("mobile") ?? null;
     passwordController.text = await SharedStorage.getItem("password") ?? null;
     await getImg();
   }
 
+  // 点击提交按钮方法
   void _submitForm() async {
     if (_loginFormKey.currentState.validate()) {
       _loginFormKey.currentState.save();
-      debugPrint('mobile:$mobile');
-      debugPrint('password:$password');
-      debugPrint('code:$code');
-      SharedStorage.setItem("mobile", mobile);
-      SharedStorage.setItem("password", password);
+      try {
+        Map data = {
+          "id": id,
+          "code": code,
+          "mobile": mobile,
+          "password": password
+        };
+        print("data：$data");
+        HttpUtil(context)
+            .post(
+          ApiUrlLogin.loginApi,
+          data: data,
+        )
+            .then(
+          (res) {
+            SharedStorage.setItem("mobile", mobile);
+            SharedStorage.setItem("password", password);
+            Navigator.pushReplacementNamed(context, "/home");
+          },
+        );
+      } catch (e) {}
     } else {
       setState(() {
         _autovalidate = true;
@@ -78,6 +96,7 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  // 验证手机号方法
   String _validateMobile(value) {
     if (value.isEmpty) {
       return "请输入手机号";
@@ -88,18 +107,14 @@ class _LoginFormState extends State<LoginForm> {
     return null;
   }
 
-  String _validatePassword(value) {
-    if (value.isEmpty) {
-      return "请输入密码";
-    }
-    return null;
-  }
-
-  String _validateCode(value) {
-    if (value.isEmpty) {
-      return "请输入验证码";
-    }
-    return null;
+  // 通用判空方法
+  Function _validate(String str) {
+    return (value) {
+      if (value.isEmpty) {
+        return str;
+      }
+      return null;
+    };
   }
 
   @override
@@ -140,7 +155,7 @@ class _LoginFormState extends State<LoginForm> {
                     onSaved: (value) {
                       password = value;
                     },
-                    validator: _validatePassword,
+                    validator: _validate("请输入密码"),
                     // 是否隐藏输入内容
                     obscureText: true,
                     // 是否自动验证
@@ -161,7 +176,7 @@ class _LoginFormState extends State<LoginForm> {
                     onSaved: (value) {
                       code = value;
                     },
-                    validator: _validateCode,
+                    validator: _validate("请输入验证码"),
                     // 是否自动验证
                     autovalidate: _autovalidate,
                     decoration: InputDecoration(

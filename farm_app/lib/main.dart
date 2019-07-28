@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app.dart';
 import 'app/views/login/register.dart';
 import 'splash.dart'; //Splash/欢迎页
 // import 'home.dart'; //HomePage/首页
@@ -14,15 +15,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(248, 68, 80, 1.0),
-        // backgroundColor: Color.fromRGBO(35, 39, 47, 1.0),
-        // bottomAppBarColor: Color.fromRGBO(45, 49, 59, 1.0),
-        backgroundColor:Colors.white
-      ),
+          primaryColor: Color.fromRGBO(248, 68, 80, 1.0),
+          // backgroundColor: Color.fromRGBO(35, 39, 47, 1.0),
+          // bottomAppBarColor: Color.fromRGBO(45, 49, 59, 1.0),
+          backgroundColor: Colors.white),
       // home: Splash(),
       initialRoute: '/',
       routes: {
         '/': (context) => Splash(),
+        '/home': (context) => HomePage(),
         '/login': (context) => LoginVm(),
         '/register': (context) => RegisterVm(),
         // '/form': (context) => FormDemo()
